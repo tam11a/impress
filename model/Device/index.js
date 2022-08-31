@@ -31,6 +31,15 @@ deviceSchema.virtual("lastState", {
   options: { sort: { createdAt: -1 }, limit: 1 },
 });
 
+
+deviceSchema.virtual("totalAlert", {
+  ref: "Alert",
+  localField: "_id",
+  foreignField: "device",
+  count: true,
+});
+
+
 deviceSchema.set("toObject", { virtuals: true });
 deviceSchema.set("toJSON", { virtuals: true });
 

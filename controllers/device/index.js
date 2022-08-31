@@ -32,7 +32,7 @@ exports.getAllValues = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Device List Get Successfully",
-      data: await Device.find({}).populate("lastState"),
+      data: await Device.find({}).populate("lastState totalAlert"),
     });
 
     // On Error
@@ -46,7 +46,7 @@ exports.getByID = async (req, res, next) => {
   try {
     // Get Device Info
     const deviceInfo = await Device.findById(req.params.id).populate(
-      "lastState"
+      "lastState totalAlert"
     );
     // Send Success Response
     res.status(200).json(
@@ -69,6 +69,27 @@ exports.getByID = async (req, res, next) => {
   }
 };
 
+exports.updateByID = async (req, res, next) => {
+  try {
+    // Send Success Response
+    res.status(200).json({
+      success: true,
+      message: "Device Updated Successfully",
+      data: await Device.updateOne(
+        {
+          _id: req.params.id,
+        },
+        req.body
+      ),
+    });
+
+    // On Error
+  } catch (error) {
+    // Send Error Response
+    next(error);
+  }
+};
+
 exports.getByName = async (req, res, next) => {
   try {
     // Send Success Response
@@ -79,7 +100,7 @@ exports.getByName = async (req, res, next) => {
         name: {
           $regex: new RegExp(req.params.name, "i"),
         },
-      }).populate("lastState"),
+      }).populate("lastState totalAlert"),
     });
 
     // On Error
