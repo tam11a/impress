@@ -53,7 +53,7 @@ module.exports = State;
  *     properties:
  *       device:
  *         type: string
- *         description: Device Id
+ *         description: ObjectId
  *       temp:
  *         type: number
  *       registor:

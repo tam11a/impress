@@ -2,21 +2,18 @@ const mongoose = require("mongoose");
 
 var alertSchema = new mongoose.Schema(
   {
-    deviceId: {
-      type: String,
-      maxLength: 31,
-      unique: [true, "The Name is already Taken"], // One Account with One Username
-      required: [true, "Please Provide a Name"], // If Required
-      trim: true,
+    device: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Device",
+      required: [true, "Please Provide Device Id"], // If Required
     },
     registor: {
       type: Number,
-      required: [true, "Please Provide Registor Value"]
+      required: [true, "Please Provide Registor Value"],
     },
   },
   { timestamps: true }
 );
-
 
 const Alert = mongoose.model("Alert", alertSchema);
 module.exports = Alert;
@@ -31,8 +28,9 @@ module.exports = Alert;
  *        - deviceId
  *        - registor
  *     properties:
- *       deviceId:
+ *       device:
  *         type: string
+ *         description: ObjectId
  *       registor:
  *         type: number
  */

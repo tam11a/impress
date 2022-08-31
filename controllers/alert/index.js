@@ -1,24 +1,20 @@
-const State = require("../../model/State");
+const Alert = require("../../model/Alert");
 
 exports.create = async (req, res, next) => {
   // Get Values
-  const { device, temp, registor, lat, lng, alt } = req.query;
+  const { device, registor } = req.query;
 
   try {
-    // Store State to DB
-    await State.create({
+    // Store Alert to DB
+    await Alert.create({
       device,
-      temp,
       registor,
-      lat,
-      lng,
-      alt,
     });
 
     // Send Success Response
     res.status(201).json({
       success: true,
-      message: "State Stored Successfully",
+      message: "Alert Stored Successfully",
     });
 
     // On Error
@@ -35,7 +31,7 @@ exports.getAllValues = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "List Get Successfully",
-      data: await State.find({
+      data: await Alert.find({
         device,
       }),
     });
@@ -49,19 +45,19 @@ exports.getAllValues = async (req, res, next) => {
 
 exports.getByID = async (req, res, next) => {
   try {
-    // Get State Info
-    const stateInfo = await State.findById(req.params.id).populate("device");
+    // Get Alert Info
+    const info = await Alert.findById(req.params.id).populate("device");
     // Send Success Response
     res.status(200).json(
-      stateInfo
+      info
         ? {
             success: true,
-            message: "State Get Successfully",
-            data: stateInfo,
+            message: "Alert Get Successfully",
+            data: info,
           }
         : {
             success: false,
-            message: "No State Found",
+            message: "No Alert Found",
           }
     );
 

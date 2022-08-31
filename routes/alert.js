@@ -1,14 +1,14 @@
 const express = require("express");
-const { create, getAllValues, getByID } = require("../controllers/state");
+const { create, getAllValues, getByID } = require("../controllers/alert");
 const router = express.Router();
 
 // Register API
 /**
  * @swagger
- * /api/state/store?device={device}&temp={temp}&registor={registor}&lat={lat}&lng={lng}&alt={alt}:
+ * /api/alert?device={device}&registor={registor}:
  *  get:
- *    tags: [State]
- *    summary: Store State
+ *    tags: [Alert]
+ *    summary: Alert Server
  *    parameters:
  *      - in: query
  *        name: device
@@ -16,47 +16,27 @@ const router = express.Router();
  *        schema:
  *          type: string
  *      - in: query
- *        name: temp
- *        required: true
- *        schema:
- *          type: number
- *      - in: query
  *        name: registor
  *        required: true
  *        schema:
  *          type: number
- *      - in: query
- *        name: lat
- *        required: true
- *        schema:
- *          type: string
- *      - in: query
- *        name: lng
- *        required: true
- *        schema:
- *          type: string
- *      - in: query
- *        name: alt
- *        required: true
- *        schema:
- *          type: string
  *
  *    responses:
  *      201:
- *        description: State Store Successful
+ *        description: Alert Successful
  *      400:
  *        description: Bad Request
  *
  */
-router.route("/store").get(create);
+router.route("/").get(create);
 
 // Get All State by Device ID
 /**
  * @swagger
- * /api/state/get-all/{device}:
+ * /api/alert/get-all/{device}:
  *  get:
- *    tags: [State]
- *    summary: Get Device State List
+ *    tags: [Alert]
+ *    summary: Get Device Alert List
  *    parameters:
  *      - in: path
  *        name: device
@@ -74,19 +54,19 @@ router.route("/get-all/:device").get(getAllValues);
 // Get Device By ID
 /**
  * @swagger
- * /api/state/id/{id}:
+ * /api/alert/id/{id}:
  *  get:
- *    tags: [State]
- *    summary: Get State by Id
+ *    tags: [Alert]
+ *    summary: Get Alert by Id
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
  *        type: string
- *        description: State Id
+ *        description: Alert Id
  *    responses:
  *      200:
- *        description: Get State Successful
+ *        description: Get Alert Successful
  *      400:
  *        description: Bad Request
  *
