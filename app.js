@@ -22,11 +22,6 @@ const swaggerOptions = {
     info: {
       title: "Impress API",
       version: "1.0.0",
-      servers: [
-        {
-          url: "http://localhost:4000",
-        },
-      ],
     },
   },
   // ['app.js', '.routes/*.js']
