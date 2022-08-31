@@ -1,0 +1,22 @@
+{
+  "name": "impress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "tam11a",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "16.0.2",
+    "express": "4.18.1",
+    "express-validator": "6.14.2",
+    "mongoose": "6.5.4",
+    "swagger-jsdoc": "6.2.5",
+    "swagger-ui-express": "4.5.0"
+  }
+}
