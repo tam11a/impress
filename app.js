@@ -37,6 +37,7 @@ const swaggerOptions = {
 app.use(express.json());
 
 app.use("/api/device", require("./routes/device"));
+app.use("/api/state", require("./routes/state"));
 
 // Add Swagger UI to Home Page
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));

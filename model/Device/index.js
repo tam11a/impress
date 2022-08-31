@@ -9,14 +9,30 @@ var deviceSchema = new mongoose.Schema(
       required: [true, "Please Provide a Name"], // If Required
       trim: true,
     },
-    phone: {
+    userPhone: {
       type: String,
       validate: [/01\d{9}$/, "Invalid Phone Number"],
       required: [true, "Please Provide User Phone Number"],
     },
+    devicePhone: {
+      type: String,
+      validate: [/01\d{9}$/, "Invalid Phone Number"],
+      required: [true, "Please Provide Device Phone Number"],
+    },
   },
   { timestamps: true }
 );
+
+deviceSchema.virtual("lastState", {
+  ref: "State",
+  localField: "_id",
+  foreignField: "device",
+  justOne: true,
+  options: { sort: { createdAt: -1 }, limit: 1 },
+});
+
+deviceSchema.set("toObject", { virtuals: true });
+deviceSchema.set("toJSON", { virtuals: true });
 
 const Device = mongoose.model("Device", deviceSchema);
 module.exports = Device;
@@ -35,7 +51,10 @@ module.exports = Device;
  *         type: string
  *         unique: true
  *         maxLength: 31
- *       phone:
+ *       userPhone:
+ *         type: string
+ *         pattern: 01\d{9}$
+ *       devicePhone:
  *         type: string
  *         pattern: 01\d{9}$
  *

@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 var stateSchema = new mongoose.Schema(
   {
-    deviceId: {
-      type: String,
-      required: [true, "Please Provide a Name"], // If Required
-      trim: true,
+    device: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Device",
+      required: [true, "Please Provide Device Id"], // If Required
     },
     temp: {
       type: Number,
@@ -34,7 +34,7 @@ var stateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const State = mongoose.model("Device", stateSchema);
+const State = mongoose.model("State", stateSchema);
 module.exports = State;
 
 /**
@@ -44,15 +44,16 @@ module.exports = State;
  *   State:
  *     type: object
  *     required:
- *        - deviceId
+ *        - device
  *        - temp
  *        - registor
  *        - lat
  *        - lng
  *        - alt
  *     properties:
- *       deviceId:
+ *       device:
  *         type: string
+ *         description: Device Id
  *       temp:
  *         type: number
  *       registor:

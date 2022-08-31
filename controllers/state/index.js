@@ -1,22 +1,24 @@
-const Device = require("../../model/Device");
-const ErrorResponse = require("../../utils/errorResponse");
+const State = require("../../model/State");
 
-exports.register = async (req, res, next) => {
+exports.create = async (req, res, next) => {
   // Get Values
-  const { name, userPhone, devicePhone } = req.body;
+  const { device, temp, registor, lat, lng, alt } = req.query;
 
   try {
-    // Store Device to DB
-    await Device.create({
-      name,
-      userPhone,
-      devicePhone,
+    // Store State to DB
+    await State.create({
+      device,
+      temp,
+      registor,
+      lat,
+      lng,
+      alt,
     });
 
     // Send Success Response
     res.status(201).json({
       success: true,
-      message: "Device Created Successfully",
+      message: "State Stored Successfully",
     });
 
     // On Error
@@ -27,12 +29,15 @@ exports.register = async (req, res, next) => {
 };
 
 exports.getAllValues = async (req, res, next) => {
+  const { device } = req.params;
   try {
     // Send Success Response
     res.status(200).json({
       success: true,
       message: "Device List Get Successfully",
-      data: await Device.find({}).populate("lastState"),
+      data: await State.find({
+        device,
+      }),
     });
 
     // On Error
@@ -44,21 +49,19 @@ exports.getAllValues = async (req, res, next) => {
 
 exports.getByID = async (req, res, next) => {
   try {
-    // Get Device Info
-    const deviceInfo = await Device.findById(req.params.id).populate(
-      "lastState"
-    );
+    // Get State Info
+    const stateInfo = await State.findById(req.params.id).populate("device");
     // Send Success Response
     res.status(200).json(
-      deviceInfo
+      stateInfo
         ? {
             success: true,
-            message: "Device Get Successfully",
-            data: deviceInfo,
+            message: "State Get Successfully",
+            data: stateInfo,
           }
         : {
             success: false,
-            message: "No Device Found",
+            message: "No State Found",
           }
     );
 
@@ -75,11 +78,11 @@ exports.getByName = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Device Get Successfully",
-      data: await Device.find({
+      data: await State.find({
         name: {
           $regex: new RegExp(req.params.name, "i"),
         },
-      }).populate("lastState"),
+      }),
     });
 
     // On Error

@@ -70,7 +70,7 @@ router.route("/register").post(register);
  * /api/device/search/{name}:
  *  get:
  *    tags: [Device]
- *    summary: Get Device Info List
+ *    summary: Search Device
  *    parameters:
  *      - in: path
  *        name: name
@@ -79,7 +79,7 @@ router.route("/register").post(register);
  *        description: Device Name
  *    responses:
  *      200:
- *        description: Get Device Info Successful
+ *        description: Search Device Successful
  *      400:
  *        description: Bad Request
  *

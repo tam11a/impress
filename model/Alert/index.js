@@ -18,7 +18,7 @@ var alertSchema = new mongoose.Schema(
 );
 
 
-const Alert = mongoose.model("Device", alertSchema);
+const Alert = mongoose.model("Alert", alertSchema);
 module.exports = Alert;
 
 /**
