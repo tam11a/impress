@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../file_bucket:/usr/src/file_bucket:rw
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:4.4.6
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=main
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=hellobro
+    ports:
+      - "27018:27018"
