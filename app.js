@@ -2,6 +2,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 4001;
 
@@ -27,6 +28,14 @@ const swaggerOptions = {
   // ['app.js', '.routes/*.js']
   apis: ["app.js", "./routes/*.js", "./model/*/*.js"],
 };
+
+// Use Cors
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 
 // Use Routes
 app.use(express.json());
