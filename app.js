@@ -40,7 +40,7 @@ const corsConfig = cors({
 // Use Routes
 app.use(express.json());
 
-app.use(corsConfig);
+app.use(cors());
 
 app.use("/api/device", require("./routes/device"));
 app.use("/api/state", require("./routes/state"));
