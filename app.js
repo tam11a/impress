@@ -30,12 +30,13 @@ const swaggerOptions = {
 };
 
 // Use Cors
-app.use(
+app.options(
+  "*",
   cors({
     origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
-    optionsSuccessStatus: 204,
+    optionsSuccessStatus: 200,
   })
 );
 
