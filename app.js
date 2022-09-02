@@ -30,27 +30,24 @@ const swaggerOptions = {
 };
 
 // Use Cors
-app.options(
-  "*",
-  cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 200,
-  })
-);
+const corsConfig = cors({
+  origin: ["http://localhost:3000"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 200,
+});
 
 // Use Routes
 app.use(express.json());
 
-app.use("/api/device", require("./routes/device"));
-app.use("/api/state", require("./routes/state"));
-app.use("/api/alert", require("./routes/alert"));
+app.use("/api/device", corsConfig, require("./routes/device"));
+app.use("/api/state", corsConfig, require("./routes/state"));
+app.use("/api/alert", corsConfig, require("./routes/alert"));
 
 // Add Swagger UI to Home Page
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));
 
-// Authentication 
+// Authentication
 /**
  * @swagger
  * components:
